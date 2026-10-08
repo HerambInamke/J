@@ -46,7 +46,7 @@ Enhancement suggestions are welcome! When proposing a new feature:
 
 ### Submitting Pull Requests
 
-1. **Fork the Repository**: Create your own fork of `Gaurav-205/Journal`.
+1. **Fork the Repository**: Create your own fork of `HerambInamke/J`.
 2. **Create a Feature Branch**:
    ```bash
    git checkout -b feature/my-new-feature
@@ -71,8 +71,8 @@ Enhancement suggestions are welcome! When proposing a new feature:
 
 1. **Clone your fork**:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Journal.git
-   cd Journal
+   git clone https://github.com/YOUR_USERNAME/J.git
+   cd J
    ```
 2. **Install dependencies**:
    ```bash

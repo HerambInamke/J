@@ -28,10 +28,10 @@ An automated daily coursework journal submission engine built with **Node.js (ES
 
 If you are not an admin of this repository, you can deploy your own **100% automated personal submission engine** in production on GitHub Actions for free in 5 steps:
 
-1. **Fork this repository**: Click the **Fork** button at top right to copy this repository to your GitHub account (`github.com/YOUR_USERNAME/Journal`).
+1. **Fork this repository**: Click the **Fork** button at top right to copy this repository to your GitHub account (`github.com/YOUR_USERNAME/J`).
 2. **Enable GitHub Actions**: In your forked repository, go to **Actions** -> click **"I understand my workflows, go ahead and enable them"**.
 3. **Generate Session File Locally**:
-   - Clone your fork: `git clone https://github.com/YOUR_USERNAME/Journal.git && cd Journal`
+   - Clone your fork: `git clone https://github.com/YOUR_USERNAME/J.git && cd J`
    - Run `npm install` and configure your `FORM_ID` in `.env`
    - Run `npm run login`, sign in to Google, and press **[ENTER]** in terminal to generate `storageState.json`.
 4. **Base64 Encode Session File**:
@@ -101,8 +101,8 @@ If you are not an admin of this repository, you can deploy your own **100% autom
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/Gaurav-205/Journal.git
-cd Journal
+git clone https://github.com/HerambInamke/J.git
+cd J
 npm install
 ```
 

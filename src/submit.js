@@ -13,6 +13,33 @@ export function getSubmissionStatePath() {
 }
 
 /**
+ * Validates a Playwright storageState.json file before navigation.
+ * A stale or empty cookie jar is a common cause of Google sign-in redirects.
+ */
+export function validateStorageState(storageStatePath) {
+  if (!fs.existsSync(storageStatePath)) {
+    throw new Error(`Storage state file not found at '${storageStatePath}'. Please run "npm run login" locally to generate it.`);
+  }
+
+  try {
+    const raw = fs.readFileSync(storageStatePath, 'utf8');
+    const parsed = JSON.parse(raw);
+    const hasCookies = Array.isArray(parsed?.cookies) && parsed.cookies.length > 0;
+    const hasOrigins = Array.isArray(parsed?.origins) && parsed.origins.length > 0;
+
+    if (!parsed || typeof parsed !== 'object' || (!hasCookies && !hasOrigins)) {
+      throw new Error('Storage state file is empty or stale. Run "npm run login" again and refresh the GitHub secret.');
+    }
+    return true;
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      throw new Error('Storage state file is not valid JSON. Re-run "npm run login" and update STORAGE_STATE_BASE64.');
+    }
+    throw error;
+  }
+}
+
+/**
  * Checks if a successful submission has already been recorded for today in target timezone.
  */
 export function hasAlreadySubmittedToday(timezone = 'Asia/Kolkata', referenceDate = new Date()) {
@@ -86,11 +113,12 @@ async function runScheduledSubmission() {
     process.exit(0);
   }
 
-  // 2. Validate session file existence
+  // 2. Validate session file presence and freshness
   const storagePath = path.resolve(config.storageStatePath);
-  if (!fs.existsSync(storagePath)) {
-    console.error(`[ERROR] Storage state file not found at '${storagePath}'.`);
-    console.error('Please run "npm run login" locally to generate the session file.');
+  try {
+    validateStorageState(storagePath);
+  } catch (error) {
+    console.error(`[ERROR] ${error.message}`);
     process.exit(1);
   }
 
